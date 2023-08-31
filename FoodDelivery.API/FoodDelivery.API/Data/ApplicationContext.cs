@@ -17,4 +17,17 @@ public class ApplicationContext: DbContext
     {
         
     }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<OrderedDish>()
+            .HasOne(od => od.Dish)
+            .WithMany(d => d.OrderedDishes)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<OrderedDish>()
+            .HasOne(od => od.Order)
+            .WithMany(o => o.OrderedDishes)
+            .OnDelete(DeleteBehavior.Restrict);
+    }
 }

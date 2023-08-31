@@ -30,6 +30,10 @@ namespace FoodDelivery.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -58,10 +62,7 @@ namespace FoodDelivery.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("EstablishmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MenuId")
+                    b.Property<int>("EstablishmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -218,7 +219,9 @@ namespace FoodDelivery.API.Migrations
                 {
                     b.HasOne("FoodDelivery.API.Data.Establishment", "Establishment")
                         .WithMany()
-                        .HasForeignKey("EstablishmentId");
+                        .HasForeignKey("EstablishmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Establishment");
                 });
@@ -259,20 +262,30 @@ namespace FoodDelivery.API.Migrations
             modelBuilder.Entity("FoodDelivery.API.Data.OrderedDish", b =>
                 {
                     b.HasOne("FoodDelivery.API.Data.Dish", "Dish")
-                        .WithMany()
+                        .WithMany("OrderedDishes")
                         .HasForeignKey("DishId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FoodDelivery.API.Data.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderedDishes")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Dish");
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("FoodDelivery.API.Data.Dish", b =>
+                {
+                    b.Navigation("OrderedDishes");
+                });
+
+            modelBuilder.Entity("FoodDelivery.API.Data.Order", b =>
+                {
+                    b.Navigation("OrderedDishes");
                 });
 #pragma warning restore 612, 618
         }

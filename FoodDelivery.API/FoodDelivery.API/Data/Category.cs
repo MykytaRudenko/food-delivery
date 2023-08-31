@@ -9,7 +9,7 @@ public class Category
     public int Id { get; set; }
     public string Title { get; set; }
 
-    public int MenuId { get; set; }
+    public int EstablishmentId { get; set; }
     [JsonIgnore]
     public virtual Establishment? Establishment { get; set; }
 
