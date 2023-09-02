@@ -37,7 +37,7 @@ public class CategoryController : ControllerBase
         return Ok(await _context.Categories.ToListAsync());
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<ActionResult<List<Category>>> CreateCategory(Category category)
     {
         _context.Categories.Add(category);

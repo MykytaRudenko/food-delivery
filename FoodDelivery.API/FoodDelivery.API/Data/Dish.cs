@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodDelivery.API.Data;
@@ -8,7 +9,10 @@ public class Dish
 {
     public int Id { get; set; }
     public string Title { get; set; }
+    
+    [DataType(DataType.Time)]
     public TimeSpan CookingTime { get; set; }
+    
     public float Price { get; set; }
     
     public int CategoryId { get; set; }

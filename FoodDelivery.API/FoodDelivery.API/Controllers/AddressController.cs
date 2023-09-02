@@ -26,7 +26,7 @@ public class AddressController : ControllerBase
     {
         _context.Addresses.Add(address);
         await _context.SaveChangesAsync();
-        return Ok(await _context.Addresses.FindAsync(address.Id));
+        return Ok(await _context.Addresses.ToListAsync());
     }
 
     [HttpPut]
@@ -44,7 +44,7 @@ public class AddressController : ControllerBase
         dbAddress.Street = address.Street;
         dbAddress.NumberOfBuilding = address.NumberOfBuilding;
 
-        return Ok(await _context.Addresses.FindAsync(address.Id));
+        return Ok(await _context.Addresses.ToListAsync());
     }
 
     [HttpDelete("{id}")]
