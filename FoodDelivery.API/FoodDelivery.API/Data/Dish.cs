@@ -8,7 +8,7 @@ namespace FoodDelivery.API.Data;
 public class Dish
 {
     public int Id { get; set; }
-    public string Title { get; set; }
+    public string Title { get; set; } = String.Empty;
     
     [DataType(DataType.Time)]
     public TimeSpan CookingTime { get; set; }

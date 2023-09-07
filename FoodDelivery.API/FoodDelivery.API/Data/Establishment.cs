@@ -7,7 +7,7 @@ namespace FoodDelivery.API.Data;
 public class Establishment
 {
     public int Id { get; set; }
-    public string Title { get; set; }
+    public string Title { get; set; } = String.Empty;
     
     public int AddressId { get; set; }
     [JsonIgnore]

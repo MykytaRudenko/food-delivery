@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Runtime.InteropServices.JavaScript;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodDelivery.API.Data;
@@ -7,10 +8,10 @@ namespace FoodDelivery.API.Data;
 public class Address
 {
     public int Id { get; set; }
-    public string Country { get; set; }
-    public string District { get; set; }
-    public string City { get; set; }
-    public string Street { get; set; }
+    public string Country { get; set; } = String.Empty;
+    public string District { get; set; } = String.Empty;
+    public string City { get; set; } = String.Empty;
+    public string Street { get; set; } = String.Empty;
     public int NumberOfBuilding { get; set; }
 
     [JsonIgnore]
