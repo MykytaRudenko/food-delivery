@@ -419,4 +419,5 @@ FodyWeavers.xsd
 run.sh
 
 #.bkp files
-**.bkp
+**.**.bkp
+**.**.dtmp
