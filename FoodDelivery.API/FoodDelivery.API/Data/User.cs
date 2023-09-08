@@ -2,13 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodDelivery.API.Data;
-//TODO: delete Telephone number field and create folder models
 [PrimaryKey(nameof(Id))]
 public class User
 {
     public int Id { get; set; }
     public string Email { get; set; } = String.Empty;
-    public string Telephone { get; set; } = String.Empty;
     public string Name { get; set; } = String.Empty;
     public string Surname { get; set; } = String.Empty;
     public byte[] PasswordHash { get; set; } = new byte[32];

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodDelivery.API.Controllers;
-//TODO: delete CreateUser method
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
@@ -30,7 +29,6 @@ public class UserController : ControllerBase
         var user = new User
         {
             Email = request.Email,
-            Telephone = request.Telephone,
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt,
             VerificationToken = CreateRandomToken()
@@ -146,12 +144,16 @@ public class UserController : ControllerBase
         return Ok(await _context.Users.ToListAsync());
     }
 
-    [HttpPost]
-    public async Task<ActionResult<List<User>>> CreateUser(User user)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<User>> GetUserById(int id)
     {
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-        return Ok(await _context.Users.ToListAsync());
+        var dbUser = await _context.Users.FindAsync(id);
+        if (dbUser == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(dbUser);
     }
     
     [HttpPut]
@@ -166,7 +168,6 @@ public class UserController : ControllerBase
         dbUser.Name = user.Name;
         dbUser.Surname = user.Surname;
         dbUser.Email = user.Email;
-        dbUser.Telephone = user.Telephone;
         dbUser.Role = user.Role;
 
         await _context.SaveChangesAsync();
